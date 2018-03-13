@@ -4,23 +4,48 @@ app = Flask(__name__)
 
 app.secret_key = 'zlToE1fsKn3984jDdt'
 
+from werkzeug.security import generate_password_hash, \
+     check_password_hash
+
+
+class User(object):
+
+    def __init__(self, username, password):
+        self.username = username
+        self.set_password(password)
+
+    def set_password(self, password):
+        self.pw_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.pw_hash, password)
+
+    def check(self, username,password):
+        if (username != self.username):
+            return False
+        return check_password_hash(self.pw_hash, password)
+
 
 @app.route('/')
 def index():
     if 'username' in session:
         return 'Logged in as %s' % escape(session['username'])
-    return redirect(url_for('login'))
+    return 'login at %s ' % (url_for('login'))
 
 
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        session['username'] = request.form['username']
+        username = request.form['username']
+        password = request.form['password']
+        if me.check(username,password):
+            session['username'] = username
         return redirect(url_for('index'))
     return '''
         <form method="post">
             <p><input type=text name=username>
+            <p><input type=password name=password>
             <p><input type=submit value=Login>
         </form>
     '''
@@ -32,4 +57,5 @@ def logout():
     return redirect(url_for('index'))
 
 if __name__ == '__main__':
+    me = User('sander', 'loadofcrap')
     app.run()
