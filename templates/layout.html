@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?wefd" />
+    <title>{% block title %}{% endblock %} - StreamFlow</title>
+    {% endblock %}
+</head>
+<body>
+    <div id="content">{% block content %}{% endblock %}</div>
+    <div id="footer">
+        {% block footer %}
+        &copy; Copyright 2018 by <a href="https://vandragt.com/">VanDragt.com</a>.
+        {% endblock %}
+    </div>
+</body>
+</html>
