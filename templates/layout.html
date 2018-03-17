@@ -2,16 +2,16 @@
 <html lang="en">
 <head>
     {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?wefd" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}?{{  range(1, 51000) | random }}" />
     <title>{% block title %}{% endblock %} - StreamFlow</title>
     {% endblock %}
 </head>
 <body>
-    <div id="content">{% block content %}{% endblock %}</div>
-    <div id="footer">
+    <main>{% block content %}{% endblock %}</main>
+    <footer>
         {% block footer %}
         &copy; Copyright 2018 by <a href="https://vandragt.com/">VanDragt.com</a>.
         {% endblock %}
-    </div>
+    </footer>
 </body>
 </html>
