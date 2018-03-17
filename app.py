@@ -31,13 +31,13 @@ def index():
     return render_template('index.html')
 
 
-@app.route('/admin')
-def admin():
+@app.route('/manage')
+def manage():
     if 'username' not in session:
         return redirect(url_for('login'))
 
     username = session['username']
-    return render_template('admin.html', username=username)
+    return render_template('manage.html', username=username)
 
 
 
@@ -45,13 +45,13 @@ def admin():
 def login():
     username = ''
     if 'username' in session:
-        return redirect(url_for('admin'))
+        return redirect(url_for('manage'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         if me.check(username,password):
             session['username'] = username
-            return redirect(url_for('admin'))
+            return redirect(url_for('manage'))
     return render_template('login.html', username=username)
 
 @app.route('/logout')
