@@ -28,6 +28,11 @@ class User(object):
 
 @app.route('/')
 def index():
+    return 'login at %s ' % (url_for('login'))
+
+
+@app.route('/admin')
+def admin():
     if 'username' in session:
         return 'Logged in as %s' % escape(session['username'])
     return 'login at %s ' % (url_for('login'))
@@ -36,12 +41,14 @@ def index():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'username' in session:
+        return redirect(url_for('admin'))
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         if me.check(username,password):
             session['username'] = username
-        return redirect(url_for('index'))
+            return redirect(url_for('admin'))
     return '''
         <form method="post">
             <p><input type=text name=username>
