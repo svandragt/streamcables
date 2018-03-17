@@ -7,6 +7,14 @@
     {% endblock %}
 </head>
 <body>
+    <nav>
+        <ul id="secondary">
+            {% include 'parts/loginout.html' %}
+        </ul>
+        <ul id="primary">
+            <li><a href="{{ url_for('index') }}">Home</a></li>
+        </ul>
+    </nav>
     <main>{% block content %}{% endblock %}</main>
     <footer>
         {% block footer %}
