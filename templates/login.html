@@ -4,9 +4,14 @@
 
 {% block content %}
     <h1>Login</h1>
-    <form method="post">
-            <p><input type=text name=username value="{{ username }}">
-            <p><input type=password name=password>
+
+    <div class="panel">
+        <form method="post">
+            <p><label for="username">Username</label>
+                <input type=text name=username value="{{ username }}">
+            <p><label for="password">Password</label>
+                <input type=password name=password>
             <p><input type=submit value=Login>
-    </form>
+        </form>
+    </div>
 {% endblock %}
