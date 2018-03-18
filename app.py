@@ -62,12 +62,16 @@ def logout():
     return redirect(url_for('index'))
 
 
-
 def read_cables_for_user(username):
+    """
+    Build an list of cables for the specified user
+    :param username: string
+    :return: list of cables
+    """
     folder = '/Users/%s' % username
     onlyfiles = [f.path for f in scandir(folder) if path.splitext(f)[1] == ".json"]
-
     return onlyfiles
+
 
 if __name__ == '__main__':
     me = User(environ['STREAMCABLES_ADMIN_USER'], environ['STREAMCABLES_ADMIN_PWD'])
