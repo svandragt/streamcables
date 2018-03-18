@@ -36,7 +36,7 @@ def login():
         if me.check(username, password):
             session['username'] = username
             return redirect(url_for('manage'))
-    flash('Incorrect login, please try again.','important')
+        flash('Incorrect login, please try again.','important')
     return render_template('login.html', username=username)
 
 
