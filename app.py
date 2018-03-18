@@ -1,9 +1,11 @@
+
+
 from flask import Flask, session, redirect, url_for, request, render_template
 from werkzeug.security import generate_password_hash, check_password_hash
-from os import environ
+from os import environ, scandir, path
 
 app = Flask(__name__)
-app.secret_key = environ['secret_key']
+app.secret_key = environ['STREAMCABLES_SECRET_KEY']
 app.brand = 'StreamCables'
 
 
@@ -31,9 +33,12 @@ def index():
 def manage():
     if 'username' not in session:
         return redirect(url_for('login'))
-
     username = session['username']
-    return render_template('manage.html', username=username)
+
+    cables = read_cables_for_user(username)
+    a = 1
+
+    return render_template('manage.html', username=username, cables=cables)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -57,6 +62,13 @@ def logout():
     return redirect(url_for('index'))
 
 
+
+def read_cables_for_user(username):
+    folder = '/Users/%s' % username
+    onlyfiles = [f.path for f in scandir(folder) if path.splitext(f)[1] == ".json"]
+
+    return onlyfiles
+
 if __name__ == '__main__':
-    me = User(environ['admin_user'], environ['admin_pwd'])
+    me = User(environ['STREAMCABLES_ADMIN_USER'], environ['STREAMCABLES_ADMIN_PWD'])
     app.run()

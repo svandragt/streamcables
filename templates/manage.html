@@ -3,9 +3,26 @@
 {% block title %}Admin Home{% endblock %}
 
 {% block content %}
-    {% if username %}
-      <h1>Hello {{ username }}!</h1>
-    {% else %}
-      <h1>Hello, World!</h1>
-    {% endif %}
+    <h1>Hello {{ username }}!</h1>
+
+    <p>Select a cable to connect:</p>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Cable</th>
+            <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for cable in cables %}
+            <tr>
+                <td>{{ cable }}</td>
+                <td>
+                    <button>Run</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
 {% endblock %}
