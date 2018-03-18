@@ -6,7 +6,6 @@ from os import environ, scandir, path
 
 app = Flask(__name__)
 app.secret_key = environ['STREAMCABLES_SECRET_KEY']
-app.brand = 'StreamCables'
 
 
 class User(object):
@@ -36,7 +35,6 @@ def manage():
     username = session['username']
 
     cables = read_cables_for_user(username)
-    a = 1
 
     return render_template('manage.html', username=username, cables=cables)
 
@@ -71,6 +69,10 @@ def read_cables_for_user(username):
     folder = '/Users/%s' % username
     onlyfiles = [f.path for f in scandir(folder) if path.splitext(f)[1] == ".json"]
     return onlyfiles
+
+@app.context_processor
+def inject_project_meta():
+    return dict(project_name='StreamCables')
 
 
 if __name__ == '__main__':
