@@ -1,8 +1,7 @@
-
+from os import environ, scandir, path
 
 from flask import Flask, session, redirect, url_for, request, render_template
 from werkzeug.security import generate_password_hash, check_password_hash
-from os import environ, scandir, path
 
 app = Flask(__name__)
 app.secret_key = environ['STREAMCABLES_SECRET_KEY']
@@ -66,9 +65,10 @@ def read_cables_for_user(username):
     :param username: string
     :return: list of cables
     """
-    folder = '/Users/%s' % username
+    folder = '/Users/{u}'.format(u=username)
     onlyfiles = [f.path for f in scandir(folder) if path.splitext(f)[1] == ".json"]
     return onlyfiles
+
 
 @app.context_processor
 def inject_project_meta():
