@@ -1,10 +1,13 @@
 from os import environ, scandir, path
 
-from flask import Flask, session, redirect, url_for, request, render_template
+from flask import Flask, session, redirect, url_for, request, render_template, flash
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
-app.secret_key = environ['STREAMCABLES_SECRET_KEY']
+app.config.update(
+    SECRET_KEY =environ['STREAMCABLES_SECRET_KEY']
+)
+
 
 
 @app.route('/')
@@ -16,11 +19,10 @@ def index():
 def manage():
     if 'username' not in session:
         return redirect(url_for('login'))
-    username = session['username']
 
-    cables = read_cables_for_user(username)
+    cables = read_cables_for_user(session['username'])
 
-    return render_template('manage.html', username=username, cables=cables)
+    return render_template('manage.html', cables=cables)
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -34,6 +36,7 @@ def login():
         if me.check(username, password):
             session['username'] = username
             return redirect(url_for('manage'))
+    flash('Incorrect login, please try again.','warning')
     return render_template('login.html', username=username)
 
 

@@ -12,7 +12,10 @@
             {% include 'parts/loginout.html' %}
         </ul>
         <ul id="primary">
-            <li><a href="{{ url_for('index') }}">{{ project_name }}</a></li>
+            <li><a href="{{ url_for('index') }}"><strong>{{ project_name }}</strong></a></li>
+            {%  if session.username %}
+            <li><a href="{{ url_for('manage') }}">Manage</a></li>
+            {%  endif %}
         </ul>
     </nav>
     <main>{% block content %}{% endblock %}</main>
