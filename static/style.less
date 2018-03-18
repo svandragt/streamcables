@@ -133,6 +133,9 @@ nav {
   a {
     color: #fff;
     padding: 10px;
+    border: 1px solid #b9301c;
+    border-width: 0 1px 0 0;
+    display:inline-block;
   }
 
   a:hover {
@@ -145,24 +148,25 @@ nav {
   }
 
   ul {
-    display: inline-block;
+    display: block;
     padding: 0;
     margin: 0;
     list-style: none;
+    overflow:auto;
   }
 
   li {
-    display:inline-block;
-  }
-
-  a {
-    display: inline-block;
+    float:left;
   }
 
 }
 
 #secondary {
   float: right;
+
+  a {
+    border-width: 0 0 0 1px;
+  }
 }
 
 footer {
