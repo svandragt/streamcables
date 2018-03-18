@@ -7,21 +7,6 @@ app = Flask(__name__)
 app.secret_key = environ['STREAMCABLES_SECRET_KEY']
 
 
-class User(object):
-
-    def __init__(self, username, password):
-        self.username = username
-        self.pw_hash = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.pw_hash, password)
-
-    def check(self, username, password):
-        if username != self.username:
-            return False
-        return check_password_hash(self.pw_hash, password)
-
-
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -59,6 +44,20 @@ def logout():
     return redirect(url_for('index'))
 
 
+class User(object):
+    def __init__(self, username, password):
+        self.username = username
+        self.pw_hash = generate_password_hash(password)
+
+    def check_password(self, password):
+        return check_password_hash(self.pw_hash, password)
+
+    def check(self, username, password):
+        if username != self.username:
+            return False
+        return check_password_hash(self.pw_hash, password)
+
+
 def read_cables_for_user(username):
     """
     Build an list of cables for the specified user
@@ -66,8 +65,8 @@ def read_cables_for_user(username):
     :return: list of cables
     """
     folder = '/Users/{u}'.format(u=username)
-    onlyfiles = [f.path for f in scandir(folder) if path.splitext(f)[1] == ".json"]
-    return onlyfiles
+    cables = [f.path for f in scandir(folder) if path.splitext(f)[1] == ".json"]
+    return cables
 
 
 @app.context_processor
