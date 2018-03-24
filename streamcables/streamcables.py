@@ -79,4 +79,4 @@ def inject_project_meta():
 
 if __name__ == '__main__':
     me = User(environ['STREAMCABLES_ADMIN_USER'], environ['STREAMCABLES_ADMIN_PWD'])
-    app.run()
+    app.run(host="0.0.0.0")

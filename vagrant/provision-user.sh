@@ -7,3 +7,8 @@ eval `opam config env`
 opam install depext -y
 opam depext taglib mad lame vorbis cry samplerate liquidsoap -y
 opam install taglib mad lame vorbis cry samplerate liquidsoap -y
+
+pip3 install --user pipenv
+
+cd /vagrant/streamcables
+make install
