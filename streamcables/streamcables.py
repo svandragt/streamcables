@@ -67,8 +67,8 @@ def read_cables_for_user(username):
     :param username: string
     :return: list of cables
     """
-    folder = '/Users/{u}'.format(u=username)
-    cables = [f.path for f in scandir(folder) if path.splitext(f)[1] == ".json"]
+    folder = '/etc/liquidsoap/{u}'.format(u=username)
+    cables = [f.path for f in scandir(folder) if path.splitext(f)[1] == ".liq"]
     return cables
 
 
