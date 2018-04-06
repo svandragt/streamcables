@@ -10,5 +10,7 @@ opam install taglib mad lame vorbis cry samplerate liquidsoap liquidsoap-daemon 
 
 
 pip3 install --user pipenv
-
+pwd
+pushd /vagrant
 make install
+popd
