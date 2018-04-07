@@ -68,7 +68,11 @@ def read_cables_for_user(username):
     :return: list of cables
     """
     folder = '/etc/liquidsoap/{u}'.format(u=username)
-    cables = [f.path for f in scandir(folder) if path.splitext(f)[1] == ".liq"]
+    try:
+        cables = [f.path for f in scandir(folder) if path.splitext(f)[1] == ".liq"]
+    except OSError as e:
+        cables = []
+
     return cables
 
 

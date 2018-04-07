@@ -5,6 +5,7 @@
 {% block content %}
     <h1>Hello {{ session.username }}!</h1>
 
+    {%  if cables %}
     <p>Select a cable to connect:</p>
 
     <table>
@@ -25,4 +26,7 @@
         {% endfor %}
         </tbody>
     </table>
+    {%  else %}
+    <p>Sorry no cables are setup, please add one.</p>
+    {% endif %}
 {% endblock %}
