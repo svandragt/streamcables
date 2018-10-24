@@ -1,0 +1,34 @@
+problem: connecting djs to webradio stations is too technical.
+	connecting:	connecting and broadcasting using dj program
+		dj program: audio or stream
+			stream: audio over http
+		connecting: http
+		broadcasting: setup of metadata
+	djs: people operating audio machines
+	webradio: third party audio over http
+	too technical: fiddly, error prone, unreliable
+		fiddly: lot of inputs
+		error prone: easy to mistype, too hard to get right, risky
+		unreliable: streaming is fallable, product of error prone
+
+new problem: the setup of linking audio sources over HTTP is time intensive, requires practice, and fragile to maintain.
+	time intensive: solved by convenience, reuse
+	requires practice: solved by consistency, automation
+	fragile to maintain: solved by managed solution
+
+SOLUTION	
+stream setup config package:
+	fully encrypted or omitting passwords
+	easy to parse by people 
+	easy to parse by machines
+	consistent
+	automation
+	vesion controlled
+	easily reused though import export
+web: 
+	accessible universally
+	visually manage streams
+	nothing to install or maintain
+	managed
+local client:
+	
