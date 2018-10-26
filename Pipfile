@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 "beautifulsoup4" = "*"
 requests = "*"
+toml = "*"
 
 [dev-packages]
 pylint = "*"

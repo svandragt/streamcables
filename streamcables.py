@@ -1,6 +1,12 @@
 #!/usr/bin/env python3.7
 from bs4 import BeautifulSoup
 import requests
+import toml
+
+
+def register_reader(reader):
+    global ins
+    ins = {**ins, **reader}
 
 
 def url_soup(url):
@@ -9,15 +15,21 @@ def url_soup(url):
     return soup
 
 
-def icecast_reader(soup):
+def main():
+    global ins
 
-    txt = soup.select("td.streamstats")[-1].text
-    txt = " ".join(txt.split())
+    from readers import icecast
 
-    return txt.split(" - ")
+    register_reader({"icecast": icecast.icecast_reader})
+
+    settings = toml.load("settings.toml")
+
+    soup = url_soup("http://listen.snowcloudfm.com:8000/status.xsl")
+    artist, title = ins[settings["reader"]](soup)
+    print(artist, title)
 
 
-soup = url_soup("http://listen.snowcloudfm.com:8000/status.xsl")
-artist, title = icecast_reader(soup)
-print(artist, title)
-
+if __name__ == "__main__":
+    ins = {}
+    main()
+    print(ins)
