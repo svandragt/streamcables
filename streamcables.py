@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.7
+#!/usr/bin/env python3.6
 from bs4 import BeautifulSoup
 import importlib
 import logging
@@ -9,10 +9,14 @@ import time
 import toml
 
 
+settings = toml.load("settings.toml")
+
+
 def main():
+    global settings
     setup_logging()
 
-    settings = toml.load("settings.toml")
+    print("StreamCables 0.1")
 
     reader_name = settings["main"]["reader"]
     writer_names = settings["main"]["writers"]
@@ -30,7 +34,9 @@ def main():
     try:
         while True:
             soup = url_soup(settings[reader_name]["url"])
-            artist, title = reader(soup)
+            args = reader(soup)
+            artist = args[-2]
+            title = args[-1]
 
             if last_artist != artist or last_title != title:
                 for writer in writers:
