@@ -1,5 +1,6 @@
 [main]
 reader = 'icecast'
+writers = ['stdout']
 
 [icecast]
 url="http://listen.snowcloudfm.com:8000/status.xsl"

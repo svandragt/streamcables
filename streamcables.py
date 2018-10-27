@@ -2,34 +2,32 @@
 from bs4 import BeautifulSoup
 import importlib
 import logging
+import maya
 import requests
 import sys
 import toml
-
-
-def register_reader(reader):
-    global ins
-    ins = {**ins, **reader}
-
-
-def url_soup(url):
-    r = requests.get(url)
-    soup = BeautifulSoup(r.text, "html.parser")
-    return soup
 
 
 def main():
     setup_logging()
 
     settings = toml.load("settings.toml")
-    reader_name = settings["main"]["reader"]
 
-    soup = url_soup(settings[reader_name]["url"])
+    reader_name = settings["main"]["reader"]
+    writer_names = settings["main"]["writers"]
 
     reader = plugins(["readers." + reader_name + ".register"])[0]
+
+    ws = []
+    for name in writer_names:
+        ws.append("writers." + name + ".register")
+    writers = plugins(ws)
+
+    soup = url_soup(settings[reader_name]["url"])
     artist, title = reader(soup)
 
-    print(artist, ":::", title)
+    for writer in writers:
+        writer({"artist": artist, "title": title})
 
 
 def plugins(fetch_handlers):
@@ -72,6 +70,12 @@ def setup_logging():
     handler_stderr = logging.StreamHandler(sys.stderr)
     handler_stderr.setLevel(logging.WARNING)
     root_logger.addHandler(handler_stderr)
+
+
+def url_soup(url):
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "html.parser")
+    return soup
 
 
 if __name__ == "__main__":
