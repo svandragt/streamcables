@@ -19,7 +19,7 @@ def open_url(url):
             print("Please open a browser on: " + url)
 
 
-def printer(args):
+def publish(args):
     global auth
     api = tweepy.API(auth)
 
@@ -30,41 +30,51 @@ def printer(args):
 
 
 def register():
-    global auth
 
     settings = streamcables.settings
+    setup_auth(settings)
+
+    streamcables.logging.info("twitter writer registered.")
+    return publish
+
+
+def setup_auth(settings):
+    global auth
 
     app_key = settings["twitter"]["app-key"]
     app_secret = settings["twitter"]["app-secret"]
-    tokens_fn = 'twitter.toml'
 
     auth = tweepy.OAuthHandler(app_key, app_secret)
 
+    tokens_fn = "twitter.toml"
     try:
-        tokens = streamcables.toml.load(tokens_fn);
+        tokens = streamcables.toml.load(tokens_fn)
     except FileNotFoundError:
         tokens = {}
 
     try:
-        auth.set_access_token(tokens['access_token'], tokens['access_token_secret'])
+        auth.set_access_token(tokens["access_token"], tokens["access_token_secret"])
     except KeyError:
-        try:
-            redirect_url = auth.get_authorization_url()
-        except tweepy.TweepError:
-            print("Error! Failed to get request token.")
+        # new authorization request
+        auth = setup_auth_new(auth)
 
-        open_url(redirect_url)
-        verifier_code = input("Verifier code: ")
-        auth.get_access_token(verifier_code)
 
-        tokens = {
-            'access_token': auth.access_token, 
-            'access_token_secret': auth.access_token_secret,
-        }
+def setup_auth_new(auth):
+    try:
+        redirect_url = auth.get_authorization_url()
+    except tweepy.TweepError:
+        print("Error! Failed to get request token.")
 
-        with open(tokens_fn, 'w') as f:
-            toml_string = streamcables.toml.dumps(tokens)
-            f.write(toml_string)
+    open_url(redirect_url)
+    verifier_code = input("Verifier code: ")
+    auth.get_access_token(verifier_code)
 
-    streamcables.logging.info("twitter writer registered.")
-    return printer
+    with open(tokens_fn, "w") as f:
+        toml_string = streamcables.toml.dumps(
+            {
+                "access_token": auth.access_token,
+                "access_token_secret": auth.access_token_secret,
+            }
+        )
+        f.write(toml_string)
+

@@ -1,7 +1,7 @@
 from streamcables import logging, maya
 
 
-def printer(args):
+def publish(args):
     m = maya.now().local_datetime()
     print("")
     print(m)
@@ -13,4 +13,4 @@ def printer(args):
 
 def register():
     logging.info("stdout writer registered.")
-    return printer
+    return publish
