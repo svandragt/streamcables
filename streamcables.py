@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.6
 from bs4 import BeautifulSoup
+import argparse
 import importlib
 import logging
 import maya
@@ -12,9 +13,34 @@ import toml
 settings = toml.load("settings.toml")
 
 
+def arg_parse():
+    global args
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "-d",
+        "--debug",
+        help="Print lots of debugging statements",
+        action="store_const",
+        dest="loglevel",
+        const=logging.DEBUG,
+        default=logging.WARNING,
+    )
+    parser.add_argument(
+        "-v",
+        "--verbose",
+        help="Be verbose",
+        action="store_const",
+        dest="loglevel",
+        const=logging.INFO,
+    )
+    args = parser.parse_args()
+    return args
+
+
 def main():
     global settings
-    setup_logging()
+    args = arg_parse()
+    setup_logging(args.loglevel)
 
     print("StreamCables 0.1")
 
@@ -30,6 +56,7 @@ def main():
         ws.append("writers." + name + ".register")
     writers = plugins(ws)
 
+    logging.info("-------START----------")
     last_artist = last_title = ""
     try:
         while True:
@@ -69,7 +96,7 @@ def plugins(fetch_handlers):
     return plugin_list
 
 
-def setup_logging():
+def setup_logging(loglevel):
     """Configure console logging. Info and below go to stdout, others go to stderr.
 
     :param int verbose: Verbosity level. > 0 print debug statements. > 1 passed to sphinx-build.
@@ -77,7 +104,7 @@ def setup_logging():
     :param str name: Which logger name to set handlers to. Used for testing.
     """
     root_logger = logging.getLogger()
-    root_logger.setLevel(logging.INFO)
+    root_logger.setLevel(loglevel)
 
     handler_stdout = logging.StreamHandler(sys.stdout)
     handler_stdout.setLevel(logging.DEBUG)

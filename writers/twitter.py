@@ -34,7 +34,7 @@ def register():
     settings = streamcables.settings
     setup_auth(settings)
 
-    streamcables.logging.info("twitter writer registered.")
+    streamcables.logging.info("[twitter] writer registered.")
     return publish
 
 
@@ -49,13 +49,12 @@ def setup_auth(settings):
     tokens_fn = "twitter.toml"
     try:
         tokens = streamcables.toml.load(tokens_fn)
-    except FileNotFoundError:
-        tokens = {}
-
-    try:
         auth.set_access_token(tokens["access_token"], tokens["access_token_secret"])
-    except KeyError:
+        streamcables.logging.info("[twitter] reused access token.")
+    except FileNotFoundError or KeyError:
         # new authorization request
+        tokens = {}
+        streamcables.logging.info("[twitter] new access token required")
         auth = setup_auth_new(auth)
 
 

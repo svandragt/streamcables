@@ -9,5 +9,5 @@ def scraper(soup):
 
 
 def register():
-    streamcables.logging.info("icecast reader registered.")
+    streamcables.logging.info("[icecast] reader registered.")
     return scraper

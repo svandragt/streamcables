@@ -12,5 +12,5 @@ def publish(args):
 
 
 def register():
-    logging.info("stdout writer registered.")
+    logging.info("[stdout] writer registered.")
     return publish
