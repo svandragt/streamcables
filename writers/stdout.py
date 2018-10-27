@@ -1,5 +1,4 @@
 from streamcables import logging, maya
-import time
 
 
 def printer(args):

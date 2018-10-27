@@ -5,6 +5,7 @@ import logging
 import maya
 import requests
 import sys
+import time
 import toml
 
 
@@ -15,19 +16,35 @@ def main():
 
     reader_name = settings["main"]["reader"]
     writer_names = settings["main"]["writers"]
+    refresh_rate = settings["main"]["refresh-rate"]
 
-    reader = plugins(["readers." + reader_name + ".register"])[0]
+    rs = ["readers." + reader_name + ".register"]
+    reader = plugins(rs)[0]
 
     ws = []
     for name in writer_names:
         ws.append("writers." + name + ".register")
     writers = plugins(ws)
 
-    soup = url_soup(settings[reader_name]["url"])
-    artist, title = reader(soup)
+    last_artist = last_title = ""
+    try:
+        while True:
+            soup = url_soup(settings[reader_name]["url"])
+            artist, title = reader(soup)
 
-    for writer in writers:
-        writer({"artist": artist, "title": title})
+            if last_artist != artist or last_title != title:
+                for writer in writers:
+                    writer({"artist": artist, "title": title})
+                last_artist, last_title = artist, title
+
+            for i in range(refresh_rate * 2):
+                print("/-\|"[i % 4], end="\b", flush=True)
+                time.sleep(0.5)
+    except KeyboardInterrupt:
+        print("")
+        pass
+
+    print("Bye!")
 
 
 def plugins(fetch_handlers):
