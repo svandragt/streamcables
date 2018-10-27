@@ -1,1 +1,5 @@
+[main]
 reader = 'icecast'
+
+[icecast]
+url="http://listen.snowcloudfm.com:8000/status.xsl"
