@@ -5,6 +5,7 @@ import sys
 import subprocess
 
 auth = {}
+tokens_fn = "twitter.toml"
 
 
 def open_url(url):
@@ -20,10 +21,16 @@ def open_url(url):
 
 
 def publish(info):
-    global auth
+    global auth, tokens_fn
     api = tweepy.API(auth)
 
-    Status = api.update_status(" is #NowPlaying ♫: " + info["now"] + " #streamcables")
+    try:
+        Status = api.update_status(
+            " is #NowPlaying ♫: " + info["now"] + " #streamcables"
+        )
+    except tweepy.TweepError:
+        os.remove(tokens_fn)
+        setup_auth()
 
     public_tweets = api.home_timeline()
 
@@ -32,23 +39,22 @@ def publish(info):
 
 
 def register():
-
-    settings = streamcables.settings
-    setup_auth(settings)
+    setup_auth()
 
     streamcables.logging.info("[twitter] writer registered.")
     return publish
 
 
-def setup_auth(settings):
-    global auth
+def setup_auth():
+    global auth, tokens_fn
+
+    settings = streamcables.settings
 
     app_key = settings["twitter"]["app-key"]
     app_secret = settings["twitter"]["app-secret"]
 
     auth = tweepy.OAuthHandler(app_key, app_secret)
 
-    tokens_fn = "twitter.toml"
     try:
         tokens = streamcables.toml.load(tokens_fn)
         auth.set_access_token(tokens["access_token"], tokens["access_token_secret"])
@@ -57,10 +63,11 @@ def setup_auth(settings):
         # new authorization request
         tokens = {}
         streamcables.logging.info("[twitter] new access token required")
-        auth = setup_auth_new(auth)
+        auth = setup_auth_new(auth, tokens_fn)
 
 
-def setup_auth_new(auth):
+def setup_auth_new():
+    global auth, tokens_fn
     try:
         redirect_url = auth.get_authorization_url()
     except tweepy.TweepError:

@@ -1,0 +1,11 @@
+Metadata-Version: 1.2
+Name: streamcables
+Version: 0.1.0
+Summary: stream now playing data to social media
+Home-page: UNKNOWN
+Author: Sander van Dragt
+Author-email: sander@vandragt.com
+License: UNKNOWN
+Description: UNKNOWN
+Platform: UNKNOWN
+Requires-Python: >=3.6,<3.7
