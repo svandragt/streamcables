@@ -1,14 +1,11 @@
 from streamcables import logging, maya
 
 
-def publish(args):
+def publish(info):
     m = maya.now().local_datetime()
     print("")
     print(m)
-    if args["artist"]:
-        print("Artist:", args["artist"])
-    if args["title"]:
-        print("Title:", args["title"])
+    print("Now playing:", info)
 
 
 def register():

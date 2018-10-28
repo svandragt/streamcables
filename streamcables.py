@@ -57,18 +57,16 @@ def main():
     writers = plugins(ws)
 
     logging.info("-------START----------")
-    last_artist = last_title = ""
+    last_info = ""
     try:
         while True:
             soup = url_soup(settings[reader_name]["url"])
-            args = reader(soup)
-            artist = args[-2]
-            title = args[-1]
+            info = reader(soup)
 
-            if last_artist != artist or last_title != title:
+            if last_info != info:
                 for writer in writers:
-                    writer({"artist": artist, "title": title})
-                last_artist, last_title = artist, title
+                    writer(info)
+                last_info = info
 
             for i in range(refresh_rate * 2):
                 print("/-\|"[i % 4], end="\b", flush=True)

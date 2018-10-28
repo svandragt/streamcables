@@ -19,9 +19,11 @@ def open_url(url):
             print("Please open a browser on: " + url)
 
 
-def publish(args):
+def publish(info):
     global auth
     api = tweepy.API(auth)
+
+    Status = api.update_status(" is now playing ♫: " + info)
 
     public_tweets = api.home_timeline()
 
