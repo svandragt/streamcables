@@ -1,13 +1,28 @@
 import streamcables
 
 
-def scraper(soup):
-    txt = soup.select("td.streamstats")[-1].text
-    txt = " ".join(txt.split())
+def scraper():
+    settings = streamcables.settings["icecast"]
+    soup = url_soup(settings["url"])
 
-    return txt
+    trs = soup.select("table.yellowkeys")[0].select("tr")
+    info = {}
+    for tr in trs:
+        k, v = tr.contents
+        info[k.text] = " ".join(v.text.split())
+
+    info["now"] = info["Currently playing:"]
+    info["hash"] = hash(info["now"])
+
+    return info
 
 
 def register():
     streamcables.logging.info("[icecast] reader registered.")
     return scraper
+
+
+def url_soup(url):
+    r = streamcables.requests.get(url)
+    soup = streamcables.BeautifulSoup(r.text, "html.parser")
+    return soup

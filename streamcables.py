@@ -57,16 +57,15 @@ def main():
     writers = plugins(ws)
 
     logging.info("-------START----------")
-    last_info = ""
+    last_hash = ""
     try:
         while True:
-            soup = url_soup(settings[reader_name]["url"])
-            info = reader(soup)
+            info = reader()
 
-            if last_info != info:
+            if last_hash != info["hash"]:
                 for writer in writers:
                     writer(info)
-                last_info = info
+                last_hash = info["hash"]
 
             for i in range(refresh_rate * 2):
                 print("/-\|"[i % 4], end="\b", flush=True)
@@ -118,12 +117,6 @@ def setup_logging(loglevel):
     handler_stderr = logging.StreamHandler(sys.stderr)
     handler_stderr.setLevel(logging.WARNING)
     root_logger.addHandler(handler_stderr)
-
-
-def url_soup(url):
-    r = requests.get(url)
-    soup = BeautifulSoup(r.text, "html.parser")
-    return soup
 
 
 if __name__ == "__main__":

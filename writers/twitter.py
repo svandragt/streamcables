@@ -23,7 +23,7 @@ def publish(info):
     global auth
     api = tweepy.API(auth)
 
-    Status = api.update_status(" is now playing ♫: " + info)
+    Status = api.update_status(" is #NowPlaying ♫: " + info["now"] + " #streamcables")
 
     public_tweets = api.home_timeline()
 

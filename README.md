@@ -46,3 +46,7 @@ refresh-rate = 20
 url="http://listen.snowcloudfm.com:8000/status.xsl"
 
 ```
+
+# readers
+
+Readers must return a dict containing hash and now

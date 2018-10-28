@@ -5,7 +5,7 @@ def publish(info):
     m = maya.now().local_datetime()
     print("")
     print(m)
-    print("Now playing:", info)
+    print("Now playing:", info["now"])
 
 
 def register():
