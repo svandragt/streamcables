@@ -13,6 +13,15 @@ Currently it supports these writers:
 
 Feel free to submit a pull request if your workflow is missing.
 
+# Prerequisites
+
+On OpenSUSE Tumbleweed the following packages are required in order to compile 
+python dependencies:
+
+```
+sudo zypper install gcc
+```
+
 # Setup
 
 StreamCables requires  [Python 3.6, its development libraries, pip and pipenv](https://docs.python-guide.org/). 
