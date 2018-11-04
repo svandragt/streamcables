@@ -1,7 +1,7 @@
 init:
-	pipenv install
+	pipenv install --dev
 
 run:
-	cd streamcables; pipenv run ./streamcables.py
+	pipenv run python streamcables/streamcables.py
 
 .PHONY: init run
