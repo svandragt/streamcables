@@ -50,23 +50,23 @@ def setup_auth():
 
     settings = streamcables.settings
 
-    app_key = settings["twitter"]["app-key"]
-    app_secret = settings["twitter"]["app-secret"]
+    app_key = settings["twitter"]["consumer-key"]
+    app_secret = settings["twitter"]["consumer-secret"]
 
     auth = tweepy.OAuthHandler(app_key, app_secret)
 
     try:
         tokens = streamcables.toml.load(tokens_fn)
-        auth.set_access_token(tokens["access_token"], tokens["access_token_secret"])
-        streamcables.logging.info("[twitter] reused access token.")
-    except FileNotFoundError or KeyError:
+    except (FileNotFoundError,KeyError) as e:
         # new authorization request
-        tokens = {}
         streamcables.logging.info("[twitter] new access token required")
-        auth = setup_auth_new(auth, tokens_fn)
+        tokens = setup_auth_tokens()
+
+    auth.set_access_token(tokens["access_token"], tokens["access_token_secret"])
+    streamcables.logging.info("[twitter] reused access token.")
 
 
-def setup_auth_new():
+def setup_auth_tokens():
     global auth, tokens_fn
     try:
         redirect_url = auth.get_authorization_url()
@@ -77,12 +77,14 @@ def setup_auth_new():
     verifier_code = input("Verifier code: ")
     auth.get_access_token(verifier_code)
 
+    tokens = {
+        "access_token": auth.access_token,
+        "access_token_secret": auth.access_token_secret,
+    }
+    
     with open(tokens_fn, "w") as f:
-        toml_string = streamcables.toml.dumps(
-            {
-                "access_token": auth.access_token,
-                "access_token_secret": auth.access_token_secret,
-            }
-        )
+        toml_string = streamcables.toml.dumps(tokens)
         f.write(toml_string)
+    
+    return tokens
 
