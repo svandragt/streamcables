@@ -1,14 +1,16 @@
 #!/usr/bin/env python3.6
-from bs4 import BeautifulSoup
-from appdirs import AppDirs
 import argparse
 import importlib
 import logging
-import maya
-import requests
 import sys
 import time
+
+from appdirs import AppDirs
+
+import maya
+import requests
 import toml
+from bs4 import BeautifulSoup
 
 dirs = AppDirs("StreamCables", "NoNoTools")
 

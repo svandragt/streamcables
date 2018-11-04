@@ -1,8 +1,9 @@
+import os
+import subprocess
+import sys
+
 import streamcables
 import tweepy
-import os
-import sys
-import subprocess
 
 auth = {}
 tokens_fn = streamcables.dirs.user_data_dir + "/twitter.toml"
@@ -51,8 +52,13 @@ def setup_auth():
 
     settings = streamcables.settings
 
-    app_key = settings["twitter"]["consumer-key"]
-    app_secret = settings["twitter"]["consumer-secret"]
+    try:
+        app_key = settings["twitter"]["consumer-key"]
+        app_secret = settings["twitter"]["consumer-secret"]
+    except KeyError:
+        print('Please add the consumer-key and consumer-secret '\
+        'to the [twitter] section of the settings file located at ' + streamcables.settings_fn)
+        exit(1)
 
     auth = tweepy.OAuthHandler(app_key, app_secret)
 
@@ -88,4 +94,3 @@ def setup_auth_tokens():
         f.write(toml_string)
     
     return tokens
-

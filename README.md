@@ -1,6 +1,6 @@
 # Introduction
 
-StreamCables, on the most basic level, is a tool that connects to audio streams and sends information to other place. It's been primarily written to connect to icecast and shoutcast streams, and stream tracklists to social media. However, it can connect to a single reader, and multiple writers, and is written for extensibility. 
+StreamCables, on the most basic level, is a tool that connects to audio streams and sends information to other place. It's been primarily written to connect to icecast and shoutcast streams, and stream tracklists to social media. However, it can connect read and write to multiple services, and is written for extensibility. 
 
 Currently it supports these readers:
 
@@ -9,14 +9,14 @@ Currently it supports these readers:
 Currently it supports these writers:
 
   - stdout (the screen)
-  - twitter
+  - Twitter
 
 Feel free to submit a pull request if your workflow is missing.
 
 # Prerequisites
 
-On OpenSUSE Tumbleweed the following packages are required in order to compile 
-python dependencies:
+On OpenSUSE Tumbleweed the python development libraries must be installed to compile 
+StreamCables' dependencies:
 
 ```
 sudo zypper install gcc
@@ -25,8 +25,8 @@ sudo zypper install python3-devel-3.6.5-3.3
 
 # Setup
 
-StreamCables requires  [Python 3.6, its development libraries, pip and pipenv](https://docs.python-guide.org/). 
-Developers can install it as follows:
+StreamCables requires  [Python 3.6, pip and pipenv](https://docs.python-guide.org/). 
+Installation:
 
 ```
 git clone <repository url> streamcables
@@ -37,14 +37,16 @@ pipenv install
 Run the program as follows:
 
 ```
-pipenv run ./streamcables.py
+pipenv run python streamcables/streamcables.py
+# shorter version
+make run
 ```
 
-You will also need a settings file (next section). 
+# Settings and Configuration
 
-# settings.toml
+You will be asked to create a settings file, the location will be printed to the screen if it doesn't exist. This settings file must contain one reader and one or more writers.
 
-Example settings:
+Example settings.toml:
 
 ```
 [main]
@@ -53,8 +55,11 @@ writers = ['stdout', 'twitter']
 refresh-rate = 20
 
 [icecast]
-url="http://listen.snowcloudfm.com:8000/status.xsl"
+url="http://localhost:8000/status.xsl"
 
+[twitter]
+consumer-key="Your twitter app consumer key"
+consumer-secret="Your twitter app consumer secret"
 ```
 
 # readers
