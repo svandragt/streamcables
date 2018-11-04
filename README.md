@@ -20,6 +20,7 @@ python dependencies:
 
 ```
 sudo zypper install gcc
+sudo zypper install python3-devel-3.6.5-3.3
 ```
 
 # Setup
