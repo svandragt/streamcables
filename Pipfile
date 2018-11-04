@@ -9,6 +9,7 @@ requests = "*"
 toml = "*"
 maya = "*"
 tweepy = "*"
+appdirs = "*"
 
 [dev-packages]
 pylint = "<2.0.0"

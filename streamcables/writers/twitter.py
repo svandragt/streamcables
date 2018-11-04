@@ -5,7 +5,7 @@ import sys
 import subprocess
 
 auth = {}
-tokens_fn = "twitter.toml"
+tokens_fn = streamcables.dirs.user_data_dir + "/twitter.toml"
 
 
 def open_url(url):
@@ -31,6 +31,7 @@ def publish(info):
     except tweepy.TweepError:
         os.remove(tokens_fn)
         setup_auth()
+        api = tweepy.API(auth)
 
     public_tweets = api.home_timeline()
 

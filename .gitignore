@@ -1,4 +1,3 @@
-*.toml
 .idea
 .vscode
 *.kate-swp

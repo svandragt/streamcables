@@ -1,5 +1,6 @@
 #!/usr/bin/env python3.6
 from bs4 import BeautifulSoup
+from appdirs import AppDirs
 import argparse
 import importlib
 import logging
@@ -9,9 +10,14 @@ import sys
 import time
 import toml
 
+dirs = AppDirs("StreamCables", "NoNoTools")
 
-settings = toml.load("settings.toml")
-
+try:
+    settings_fn = dirs.user_data_dir + "/settings.toml"
+    settings = toml.load(settings_fn)
+except FileNotFoundError:
+    print("Missing " + settings_fn)
+    exit(1)
 
 def arg_parse():
     global args
