@@ -1,4 +1,6 @@
-from streamcables import logging, maya
+import maya
+
+from logger import logging
 
 
 def publish(info):

@@ -1,9 +1,13 @@
-import streamcables
+import requests
+from bs4 import BeautifulSoup
+
+import settings
+from logger import logging
 
 
 def scraper():
-    settings = streamcables.settings["icecast"]
-    soup = url_soup(settings["url"])
+    mysettings = settings.config["icecast"]
+    soup = url_soup(mysettings["url"])
 
     trs = soup.select("table.yellowkeys")[0].select("tr")
     info = {}
@@ -18,11 +22,11 @@ def scraper():
 
 
 def register():
-    streamcables.logging.info("[icecast] reader registered.")
+    logging.info("[icecast] reader registered.")
     return scraper
 
 
 def url_soup(url):
-    r = streamcables.requests.get(url)
-    soup = streamcables.BeautifulSoup(r.text, "html.parser")
+    r = requests.get(url)
+    soup = BeautifulSoup(r.text, "html.parser")
     return soup
