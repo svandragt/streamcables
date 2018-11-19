@@ -34,7 +34,7 @@ def publish(info):
         )
     except tweepy.TweepError:
         os.remove(tokens_fn)
-        setup_auth()
+        session_setup()
         api = tweepy.API(auth)
 
     public_tweets = api.home_timeline()
@@ -47,13 +47,13 @@ def register():
     global tokens_fn
     tokens_fn = settings.config['dirs'].user_data_dir + "/twitter.toml"
 
-    setup_auth()
+    session_setup()
 
     logging.info("[twitter] writer registered.")
     return publish
 
 
-def setup_auth():
+def session_setup():
     global auth, tokens_fn
 
     mysettings = settings.config['twitter']
@@ -76,13 +76,13 @@ def setup_auth():
     except (FileNotFoundError, KeyError):
         # new authorization request
         logging.info("[twitter] new access token required")
-        tokens = setup_auth_tokens()
+        tokens = authorize()
 
     auth.set_access_token(tokens["access_token"], tokens["access_token_secret"])
     logging.info("[twitter] reused access token.")
 
 
-def setup_auth_tokens():
+def authorize():
     global auth, tokens_fn
     try:
         redirect_url = auth.get_authorization_url()
