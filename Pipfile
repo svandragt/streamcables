@@ -15,6 +15,7 @@ appdirs = "*"
 pylint = "<2.0.0"
 black = "*"
 rope = "*"
+flit = "*"
 
 [requires]
 python_version = "3.6"
