@@ -1,0 +1,11 @@
+#[main]
+#reader = 'icecast'
+#writers = ['stdout']
+#refresh-rate = 20
+
+#[icecast]
+#url="http://link.to.icecast/status.xsl"
+
+#[twitter]
+#consumer-key="my app key"
+#consumer-secret="my app secret"
