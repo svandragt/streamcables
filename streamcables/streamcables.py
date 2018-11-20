@@ -59,7 +59,7 @@ def plugins(fetch_handlers):
         except NotImplementedError:
             # Skip missing plugins so that they can be ommitted from
             # installation if desired
-            logger.logging.info("FetchHandler {} not found, skipping plugin".format(handler_name))
+            logger.logging.warning("FetchHandler {} not found, skipping plugin".format(handler_name))
     return plugin_list
 
 
