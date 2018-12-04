@@ -10,12 +10,14 @@ toml = "*"
 maya = "*"
 tweepy = "*"
 appdirs = "*"
+arg = "*"
 
 [dev-packages]
 pylint = "<2.0.0"
 black = "*"
 rope = "*"
 flit = "*"
+pyinstaller = "*"
 
 [requires]
 python_version = "3.6"
