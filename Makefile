@@ -1,3 +1,6 @@
+build:
+	rm -rf dist && pipenv run pyinstaller streamcables/streamcables.py -n streamcables --onefile
+
 init:
 	pipenv install --dev
 
@@ -7,4 +10,4 @@ pack:
 run:
 	pipenv run python streamcables/streamcables.py
 
-.PHONY: init pack run
+.PHONY: build init pack run
