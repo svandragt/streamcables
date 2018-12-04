@@ -6,4 +6,7 @@ setup(
     packages=['streamcables',],
     license='MIT',
     long_description=open('README.md').read(),
+    url='https://streamcables.com',
+    author='Sander van Dragt',
+    author_email='sander@vandragt.com',
 )

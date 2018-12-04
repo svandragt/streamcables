@@ -2,3 +2,4 @@
 .vscode
 *.kate-swp
 dist/
+streamcables/__pycache__/
