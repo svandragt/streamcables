@@ -1,7 +1,10 @@
 init:
 	pipenv install --dev
 
+pack:
+	pipenv run python setup.py sdist
+
 run:
 	pipenv run python streamcables/streamcables.py
 
-.PHONY: init run
+.PHONY: init pack run
