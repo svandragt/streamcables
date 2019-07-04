@@ -44,7 +44,7 @@ make run
 
 # Settings and Configuration
 
-You will be asked to create a settings file, the location will be printed to the screen if it doesn't exist. This settings file must contain one reader and one or more writers.
+You will be asked to create a settings file, the location will be printed to the screen if it doesn't exist. This settings file must contain one reader and one or more writers. To use Twitter functionality, a registered Twitter developer account and application is required which provides the key and secret.
 
 Example settings.toml:
 
