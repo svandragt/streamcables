@@ -1,4 +1,7 @@
-.idea
-.vscode
+.idea/
+.venv/
+.vscode/
 *.kate-swp
+build/
 dist/
+streamcables/__pycache__/
