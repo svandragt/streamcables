@@ -12,7 +12,7 @@ tweepy = "*"
 appdirs = "*"
 
 [dev-packages]
-pylint = "<2.0.0"
+pylint = "<3.0.0"
 black = "*"
 rope = "*"
 flit = "*"
