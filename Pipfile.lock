@@ -264,11 +264,11 @@
         },
         "tweepy": {
             "hashes": [
-                "sha256:8d4b4520271b796fa7efc4c5d5ef3228af4d79f6a4d3ace3900b2778ed8f6f1c",
-                "sha256:cf02c4fbbd027fbc7172c24d03f53f061329ac040b22d201e59592a1cff86364"
+                "sha256:87f7ea18bdaf5896158b17e677b271c9b9772eb8917ae895895d77783b6d3176",
+                "sha256:bd1f06755ed0a115b106bff0f8c8df0a85f9431b898de555abb9ef96aa65439f"
             ],
             "index": "pypi",
-            "version": "==4.4.0"
+            "version": "==4.6.0"
         },
         "typing-extensions": {
             "hashes": [
@@ -538,7 +538,7 @@
                 "sha256:05b6166bff487dc068d322585c7ea4ef78deed501cc124060e0f238e89a9231f",
                 "sha256:e3069e4be3ead9668e21cb9b074cd948f7b3113fd9c8bba083f48247aab8b11c"
             ],
-            "markers": "python_full_version < '3.11.0a7'",
+            "markers": "python_version < '3.11'",
             "version": "==1.2.3"
         },
         "tomli-w": {
