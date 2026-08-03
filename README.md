@@ -1,10 +1,10 @@
 # Introduction
 
-StreamCables, on the most basic level, is a tool that connects to audio streams and sends information to other place. It's been primarily written to connect to icecast and shoutcast streams, and stream tracklists to social media. However, it can connect read and write to multiple services, and is written for extensibility. 
+StreamCables connects to audio streams and sends the metadata to other places. It's built mainly to connect to Icecast and Shoutcast streams, and to post track lists to social media. It can read from and write to multiple services, and it's written for extensibility.
 
 Currently it supports these readers:
 
-  - icecast
+  - Icecast
 
 Currently it supports these writers:
 
@@ -16,7 +16,7 @@ Feel free to submit a pull request if your workflow is missing.
 # Setup
 
 StreamCables requires Python 3.11+ and [uv](https://docs.astral.sh/uv/).
-Installation:
+Install it as follows:
 
 ```
 git clone <repository url> streamcables
@@ -32,9 +32,9 @@ uv run python streamcables/streamcables.py
 make run
 ```
 
-# Settings and Configuration
+# Settings and configuration
 
-You will be asked to create a settings file, the location will be printed to the screen if it doesn't exist. This settings file must contain one reader and one or more writers. To use Twitter functionality, a registered Twitter developer account and application is required which provides the key and secret.
+On first run, StreamCables asks you to create a settings file, and prints the expected location to the screen. This settings file must contain one reader and one or more writers. To use the Twitter functionality, you need a registered Twitter developer account and application, which gives you the key and secret.
 
 Example settings.toml:
 
@@ -52,6 +52,4 @@ consumer-key="Your twitter app consumer key"
 consumer-secret="Your twitter app consumer secret"
 ```
 
-# readers
-
-Readers must return a dict containing hash and now
+For details on how readers and writers work, and how to add your own, see [CLAUDE.md](CLAUDE.md#architecture).

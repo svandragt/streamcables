@@ -13,7 +13,7 @@ uv sync   # make init
 uv run python streamcables/streamcables.py   # make run
 ```
 
-There is no test suite, linter config, or CI beyond dependabot auto-merge (`.github/workflows/dependabot-auto-merge.yml`). `pylint` and `black` are dev dependencies (`[dependency-groups] dev` in `pyproject.toml`) but have no invocation wired up.
+CI (`.github/workflows/ci.yml`) runs `ruff check`, `ruff format --check`, and `pytest --cov=streamcables` on push and pull request. `main` requires the `lint` and `test` checks to pass before merge. Dependabot PRs auto-merge once CI passes (`.github/workflows/dependabot-auto-merge.yml`), except major version bumps.
 
 Requires Python 3.11+ (see `pyproject.toml`), and imports are unqualified (`import settings`, not `from streamcables import settings`) — the package relies on `streamcables/` itself being on `sys.path` when run as a script, not on being installed.
 
