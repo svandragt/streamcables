@@ -4,7 +4,7 @@ build-backend = "flit_core.buildapi"
 
 [project]
 name = "streamcables"
-version = "0.1"
+version = "0.2.0"
 description = "StreamCables does streaming metadata syndication"
 authors = [{ name = "Sander van Dragt", email = "sander@vandragt.com" }]
 readme = "README.md"

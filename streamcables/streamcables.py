@@ -1,4 +1,4 @@
-#!/usr/bin/env python3.6
+#!/usr/bin/env python3
 import importlib
 import time
 
@@ -12,7 +12,7 @@ def main():
     args = arg.parse()
     logger.init(args.loglevel)
 
-    print("StreamCables 0.1")
+    print("StreamCables 0.2.0")
 
     config = settings.config
 
