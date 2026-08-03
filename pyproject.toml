@@ -1,11 +1,27 @@
 [build-system]
-requires = ["flit"]
-build-backend = "flit.buildapi"
+requires = ["flit_core >=3.9,<4"]
+build-backend = "flit_core.buildapi"
 
-[tool.flit.metadata]
-module = "streamcables"
-author = "Sander van Dragt"
-author-email = "sander@vandragt.com"
-home-page = "https://vandragt.com/streamcables"
+[project]
+name = "streamcables"
+version = "0.1"
+description = "StreamCables does streaming metadata syndication"
+authors = [{ name = "Sander van Dragt", email = "sander@vandragt.com" }]
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "MIT" }
 classifiers = ["License :: OSI Approved :: MIT License"]
+dependencies = [
+    "beautifulsoup4",
+    "requests",
+    "toml",
+    "maya",
+    "tweepy",
+    "appdirs",
+]
 
+[project.urls]
+Homepage = "https://vandragt.com/streamcables"
+
+[dependency-groups]
+dev = ["pylint<3.0.0", "black", "rope", "flit"]

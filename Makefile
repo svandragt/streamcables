@@ -1,7 +1,7 @@
 init:
-	pipenv install --dev
+	uv sync
 
 run:
-	pipenv run python streamcables/streamcables.py
+	uv run python streamcables/streamcables.py
 
 .PHONY: init run

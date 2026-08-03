@@ -13,31 +13,21 @@ Currently it supports these writers:
 
 Feel free to submit a pull request if your workflow is missing.
 
-# Prerequisites
-
-On OpenSUSE Tumbleweed the python development libraries must be installed to compile 
-StreamCables' dependencies:
-
-```
-sudo zypper install gcc
-sudo zypper install python3-devel-3.6.5-3.3
-```
-
 # Setup
 
-StreamCables requires  [Python 3.6, pip and pipenv](https://docs.python-guide.org/). 
+StreamCables requires Python 3.11+ and [uv](https://docs.astral.sh/uv/).
 Installation:
 
 ```
 git clone <repository url> streamcables
 cd streamcables
-pipenv install
+uv sync
 ```
 
 Run the program as follows:
 
 ```
-pipenv run python streamcables/streamcables.py
+uv run python streamcables/streamcables.py
 # shorter version
 make run
 ```
