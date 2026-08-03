@@ -1,11 +1,10 @@
 import maya
-
 from logger import logging
 
 
 def publish(info):
     m = maya.now().local_datetime()
-    print("")
+    print()
     print(m)
     print("Now playing:", info["now"])
 

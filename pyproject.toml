@@ -24,4 +24,13 @@ dependencies = [
 Homepage = "https://vandragt.com/streamcables"
 
 [dependency-groups]
-dev = ["pylint<3.0.0", "black", "rope", "flit"]
+dev = ["ruff", "rope", "flit", "pytest", "pytest-cov"]
+
+[tool.ruff]
+target-version = "py311"
+
+[tool.ruff.lint]
+ignore = ["LOG015"] # project logs via the root logger throughout, not per-module loggers
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

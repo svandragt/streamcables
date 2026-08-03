@@ -40,11 +40,10 @@ def main():
                 last_hash = info["hash"]
 
             for i in range(refresh_rate * 2):
-                print("/-\|"[i % 4], end="\b", flush=True)
+                print(r"/-\|"[i % 4], end="\b", flush=True)
                 time.sleep(0.5)
     except KeyboardInterrupt:
-        print("")
-        pass
+        print()
 
     print("Bye!")
 
@@ -59,7 +58,9 @@ def plugins(fetch_handlers):
         except NotImplementedError:
             # Skip missing plugins so that they can be ommitted from
             # installation if desired
-            logger.logging.warning("FetchHandler {} not found, skipping plugin".format(handler_name))
+            logger.logging.warning(
+                f"FetchHandler {handler_name} not found, skipping plugin"
+            )
     return plugin_list
 
 

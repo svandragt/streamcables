@@ -2,14 +2,13 @@ import os
 import subprocess
 import sys
 
+import settings
 import toml
 import tweepy
-
-import settings
 from logger import logging
 
 auth = {}
-tokens_fn = ''
+tokens_fn = ""
 
 
 def open_url(url):
@@ -25,13 +24,10 @@ def open_url(url):
 
 
 def publish(info):
-    global auth, tokens_fn
     api = tweepy.API(auth)
 
     try:
-        api.update_status(
-            " is #NowPlaying ♫: " + info["now"] + " #streamcables"
-        )
+        api.update_status(" is #NowPlaying ♫: " + info["now"] + " #streamcables")
     except tweepy.TweepError:
         os.remove(tokens_fn)
         session_setup()
@@ -45,7 +41,7 @@ def publish(info):
 
 def register():
     global tokens_fn
-    tokens_fn = settings.config['dirs'].user_data_dir + "/twitter.toml"
+    tokens_fn = settings.config["dirs"].user_data_dir + "/twitter.toml"
 
     session_setup()
 
@@ -54,20 +50,23 @@ def register():
 
 
 def session_setup():
-    global auth, tokens_fn
+    global auth
 
-    mysettings = settings.config['twitter']
+    mysettings = settings.config["twitter"]
 
-    app_key = ''
-    app_secret = ''
+    app_key = ""
+    app_secret = ""
 
     try:
         app_key = mysettings["consumer-key"]
         app_secret = mysettings["consumer-secret"]
     except KeyError:
-        print('Please add the consumer-key and consumer-secret '
-              'to the [twitter] section of the settings file located at ' + settings.config['settings_fn'])
-        exit(1)
+        print(
+            "Please add the consumer-key and consumer-secret "
+            "to the [twitter] section of the settings file located at "
+            + settings.config["settings_fn"]
+        )
+        sys.exit(1)
 
     auth = tweepy.OAuthHandler(app_key, app_secret)
 
@@ -83,7 +82,6 @@ def session_setup():
 
 
 def authorize():
-    global auth, tokens_fn
     try:
         redirect_url = auth.get_authorization_url()
         open_url(redirect_url)

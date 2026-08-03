@@ -3,8 +3,7 @@ import sys
 
 
 def init(loglevel):
-    """Configure console logging. Info and below go to stdout, others go to stderr.
-    """
+    """Configure console logging. Info and below go to stdout, others go to stderr."""
     root_logger = logging.getLogger()
     root_logger.setLevel(loglevel)
 
