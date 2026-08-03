@@ -34,7 +34,7 @@ def main():
         while True:
             info = reader()
 
-            if last_hash != info["hash"]:
+            if info is not None and last_hash != info["hash"]:
                 for writer in writers:
                     writer(info)
                 last_hash = info["hash"]

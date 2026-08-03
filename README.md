@@ -1,6 +1,6 @@
 # Introduction
 
-StreamCables connects to audio streams and sends the metadata to other places. It's built mainly to connect to Icecast and Shoutcast streams, and to post track lists to social media. It can read from and write to multiple services, and it's written for extensibility.
+StreamCables connects to audio streams and sends the metadata to other places. It's built mainly to post track lists to social media, and it's written for extensibility so it can read from and write to multiple services.
 
 Currently it supports these readers:
 

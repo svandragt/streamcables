@@ -8,7 +8,12 @@ def scraper():
     mysettings = settings.config["icecast"]
     soup = url_soup(mysettings["url"])
 
-    trs = soup.select("table.yellowkeys")[0].select("tr")
+    tables = soup.select("table.yellowkeys")
+    if not tables:
+        logging.warning("[icecast] source unavailable, skipping this poll")
+        return None
+
+    trs = tables[0].select("tr")
     info = {}
     for tr in trs:
         k, v = tr.contents
