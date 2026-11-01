@@ -1,9 +1,12 @@
 from pathlib import Path
 
 import pytest
-import settings
 
-DEFAULT_SETTINGS = Path(__file__).parent.parent / "settings.default.toml"
+from streamcables import settings
+
+DEFAULT_SETTINGS = (
+    Path(__file__).parent.parent / "streamcables" / "settings.default.toml"
+)
 
 
 class FakeDirs:

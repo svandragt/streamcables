@@ -2,6 +2,6 @@ init:
 	uv sync
 
 run:
-	uv run python streamcables/streamcables.py
+	uv run streamcables
 
 .PHONY: init run

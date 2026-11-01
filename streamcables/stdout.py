@@ -1,5 +1,6 @@
 import maya
-from logger import logging
+
+from .logger import logging
 
 
 def publish(info):
