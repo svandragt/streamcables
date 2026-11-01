@@ -52,4 +52,4 @@ consumer-key="Your twitter app consumer key"
 consumer-secret="Your twitter app consumer secret"
 ```
 
-For details on how readers and writers work, and how to add your own, see [CLAUDE.md](CLAUDE.md#architecture).
+For details on how readers and writers work, and how to add your own, see [AGENTS.md](AGENTS.md#architecture).
