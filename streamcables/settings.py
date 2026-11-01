@@ -21,8 +21,9 @@ def init():
         print("Reading " + config["settings_fn"] + "...")
     except FileNotFoundError:
         logging.warning("Edit " + config["settings_fn"] + "!")
-        repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-        src = os.path.join(repo_root, "settings.default.toml")
+        src = os.path.join(
+            os.path.dirname(os.path.abspath(__file__)), "settings.default.toml"
+        )
         os.makedirs(config["dirs"].user_data_dir, exist_ok=True)
         copyfile(src, config["settings_fn"])
         sys.exit(1)

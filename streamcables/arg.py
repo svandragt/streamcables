@@ -1,6 +1,6 @@
 import argparse
 
-from logger import logging
+from .logger import logging
 
 
 def parse():

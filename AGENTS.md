@@ -10,14 +10,14 @@ StreamCables connects to audio stream metadata sources (icecast/shoutcast "now p
 
 ```
 uv sync   # make init
-uv run python streamcables/streamcables.py   # make run
+uv run streamcables   # make run
 ```
 
 CI (`.github/workflows/ci.yml`) runs `ruff check`, `ruff format --check`, and `pytest --cov=streamcables` on push and pull request. `main` requires the `lint` and `test` checks to pass before merge. Dependabot PRs auto-merge once CI passes (`.github/workflows/dependabot-auto-merge.yml`), except major version bumps.
 
 Pushing a `v*` tag runs `.github/workflows/release.yml`, which builds with `uv build` and publishes to PyPI through trusted publishing (the `pypi` environment, no token secret). Bump `version` in `pyproject.toml` before tagging, because PyPI rejects a version it already has.
 
-Requires Python 3.11+ (see `pyproject.toml`), and imports are unqualified (`import settings`, not `from streamcables import settings`) — the package relies on `streamcables/` itself being on `sys.path` when run as a script, not on being installed.
+Requires Python 3.11+ (see `pyproject.toml`), and modules import each other with relative imports (`from . import settings`). The package must be installed to run; `uv sync` installs it.
 
 ## Architecture
 
@@ -38,4 +38,4 @@ Existing plugins:
 
 ## Settings
 
-Config is TOML, loaded by `settings.py:init()` from an OS-specific app data dir (via `appdirs.AppDirs("StreamCables", "NoNoTools")`), not from the repo. If the file doesn't exist, it's copied from `settings.default.toml` and the process exits, prompting the user to edit it and rerun. See `README.md` for the settings file format (`[main]`, `[icecast]`, `[twitter]` sections).
+Config is TOML, loaded by `settings.py:init()` from an OS-specific app data dir (via `appdirs.AppDirs("StreamCables", "NoNoTools")`), not from the repo. If the file doesn't exist, it's copied from `streamcables/settings.default.toml` and the process exits, prompting the user to edit it and rerun. See `README.md` for the settings file format (`[main]`, `[icecast]`, `[twitter]` sections).

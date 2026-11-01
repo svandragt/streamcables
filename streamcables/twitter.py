@@ -2,10 +2,11 @@ import os
 import subprocess
 import sys
 
-import settings
 import toml
 import tweepy
-from logger import logging
+
+from . import settings
+from .logger import logging
 
 auth = {}
 tokens_fn = ""

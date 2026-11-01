@@ -1,6 +1,6 @@
 import logging
 
-import arg
+from streamcables import arg
 
 
 def test_default_loglevel(monkeypatch):

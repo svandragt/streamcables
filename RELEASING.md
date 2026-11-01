@@ -12,7 +12,6 @@ Make sure `main` is green: check that the `lint` and `test` checks pass on the l
 2. Update the version number in two places:
    - `version` in `pyproject.toml`
    - `__version__` in `streamcables/__init__.py`
-   - the `print("StreamCables ...")` line in `streamcables/streamcables.py`
 3. Commit the version bump and push it to `main`.
 4. Tag the commit and push the tag:
 
@@ -20,6 +19,8 @@ Make sure `main` is green: check that the `lint` and `test` checks pass on the l
    git tag -a vX.Y.Z -m "vX.Y.Z"
    git push origin vX.Y.Z
    ```
+
+   Pushing the tag runs the `Release` workflow, which builds the package and publishes it to PyPI. Check that the run succeeds: `gh run list --workflow release.yml`.
 
 5. Create the GitHub release from that tag, with your own release notes (see below):
 

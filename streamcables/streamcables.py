@@ -1,10 +1,8 @@
-#!/usr/bin/env python3
 import importlib
+import importlib.metadata
 import time
 
-import arg
-import logger
-import settings
+from . import arg, logger, settings
 
 
 def main():
@@ -12,7 +10,7 @@ def main():
     args = arg.parse()
     logger.init(args.loglevel)
 
-    print("StreamCables 0.2.0")
+    print("StreamCables", importlib.metadata.version("streamcables"))
 
     config = settings.config
 
@@ -53,7 +51,9 @@ def plugins(fetch_handlers):
     for handler_name in fetch_handlers:
         package, classname = handler_name.rsplit(".", 1)
         try:
-            handler_class = getattr(importlib.import_module(package), classname)
+            handler_class = getattr(
+                importlib.import_module("." + package, __package__), classname
+            )
             plugin_list.append(handler_class())
         except NotImplementedError:
             # Skip missing plugins so that they can be ommitted from

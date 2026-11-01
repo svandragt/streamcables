@@ -27,7 +27,7 @@ uv sync
 Run the program as follows:
 
 ```
-uv run python streamcables/streamcables.py
+uv run streamcables
 # shorter version
 make run
 ```

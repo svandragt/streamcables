@@ -1,7 +1,8 @@
 import requests
-import settings
 from bs4 import BeautifulSoup
-from logger import logging
+
+from . import settings
+from .logger import logging
 
 
 def scraper():
